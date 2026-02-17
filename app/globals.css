@@ -1,0 +1,293 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Focus styles */
+input:focus,
+button:focus,
+select:focus {
+  outline: none;
+}
+
+/* Selection */
+::selection {
+  background: rgba(251, 191, 36, 0.3);
+  color: white;
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+/* Gradient text helper */
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glass effect helper */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Button press effect */
+.btn-press:active {
+  transform: scale(0.98);
+}
+
+/* Custom select styling */
+select option {
+  background: #1e293b;
+  color: white;
+}
+
+/* ========================================
+   PRINT STYLES — Reports, Tables, Layout
+   ======================================== */
+@media print {
+  /* Reset page */
+  @page {
+    margin: 12mm 10mm;
+    size: A4 landscape;
+  }
+
+  body, html {
+    background: white !important;
+    background-color: white !important;
+    background-image: none !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-size: 10pt;
+  }
+
+  /* Reset the main layout wrapper */
+  body > div, #__next, [class*="min-h-screen"] {
+    background: white !important;
+    background-image: none !important;
+    background-color: white !important;
+  }
+
+  /* Hide non-essential elements */
+  aside, nav, header, footer,
+  .print\:hidden,
+  button:not(.print-visible),
+  [class*="print:hidden"] {
+    display: none !important;
+  }
+
+  /* Reset layout - remove sidebar padding */
+  .lg\:pl-72 {
+    padding-left: 0 !important;
+  }
+
+  /* Full width content */
+  main, .max-w-\[1400px\] {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Table styling */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 9pt !important;
+    page-break-inside: auto;
+  }
+
+  th, td {
+    border: 1px solid #999 !important;
+    padding: 3px 6px !important;
+    color: black !important;
+  }
+
+  th {
+    background: #e5e7eb !important;
+    font-weight: 700 !important;
+    font-size: 8pt !important;
+    text-transform: uppercase;
+  }
+
+  td {
+    background: white !important;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  /* Remove dark backgrounds */
+  [class*="bg-slate"], [class*="bg-gray"], [class*="bg-white/5"],
+  [class*="bg-white/10"], [class*="rounded-xl"],
+  [class*="from-slate"], [class*="via-slate"], [class*="to-slate"],
+  [class*="bg-gradient"] {
+    background: white !important;
+    background-image: none !important;
+    background-color: white !important;
+    border-color: #ccc !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Fix text colors */
+  [class*="text-white"], [class*="text-slate"], [class*="text-gray"] {
+    color: black !important;
+  }
+  [class*="text-emerald"] { color: #059669 !important; }
+  [class*="text-amber"] { color: #d97706 !important; }
+  [class*="text-red"] { color: #dc2626 !important; }
+  [class*="text-blue"] { color: #2563eb !important; }
+
+  /* Progress bars: keep colored */
+  [class*="bg-emerald-500"], [class*="bg-green"] {
+    background: #059669 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  [class*="bg-amber-500"] { background: #d97706 !important; }
+  [class*="bg-red-500"] { background: #dc2626 !important; }
+  [class*="bg-blue-500"] { background: #2563eb !important; }
+
+  /* Progress bar backgrounds */
+  [class*="bg-slate-700"], [class*="bg-gray-200"] {
+    background: #e5e7eb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Print header logo */
+  .print\:block { display: block !important; }
+
+  /* Force hide screen-only elements on print */
+  .print\:hidden { display: none !important; visibility: hidden !important; }
+  [data-print-hide="true"] { display: none !important; }
+
+  /* Report header: ensure white background on print */
+  #report-print-header {
+    display: block !important;
+    background: white !important;
+    color: black !important;
+  }
+  #report-print-header * {
+    background: transparent !important;
+  }
+  #report-print-header h1 { color: black !important; font-size: 16pt !important; }
+  #report-print-header h2 { color: black !important; font-size: 13pt !important; }
+  #report-print-header p { color: #333 !important; }
+  #report-print-header img { background: transparent !important; }
+  .report-print-header {
+    display: block !important;
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .report-print-header * {
+    color: black !important;
+    background: transparent !important;
+  }
+  .report-print-header h1 { color: black !important; font-size: 16pt !important; }
+  .report-print-header h2 { color: black !important; font-size: 13pt !important; }
+  .report-print-header p { color: #333 !important; }
+
+  /* Status badges - MUST come after bg-* rules to override */
+  .status-badge {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--print-color, black) !important;
+    border: 1px solid var(--print-color, #999) !important;
+    padding: 1px 6px !important;
+    font-size: 7pt !important;
+    font-weight: 600 !important;
+  }
+
+  /* Status badges */
+  span[class*="border"][class*="rounded"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 1px solid #999 !important;
+    padding: 1px 4px !important;
+    font-size: 7pt !important;
+  }
+
+  /* Page breaks */
+  .page-break-before { page-break-before: always; }
+  .page-break-after { page-break-after: always; }
+  .no-page-break { page-break-inside: avoid; }
+
+  /* Details/summary open on print */
+  details { display: block !important; }
+  details > summary { display: none !important; }
+  details > div { display: block !important; }
+}

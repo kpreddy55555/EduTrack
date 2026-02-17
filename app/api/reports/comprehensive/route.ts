@@ -5,17 +5,25 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 
+let _supabase: any = null
 function getSupabase() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    { auth: { persistSession: false, autoRefreshToken: false } }
-  )
+  if (!_supabase) {
+    _supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { auth: { persistSession: false, autoRefreshToken: false } }
+    )
+  }
+  return _supabase
 }
+
+// Proxy so all existing `supabase.from(...)` calls work without refactoring
+const supabase = new Proxy({} as any, {
+  get(_target, prop) { return (getSupabase() as any)[prop] }
+})
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = getSupabase()
     const body = await request.json()
     const { report_type, institution_id, academic_year_id, filters } = body
 

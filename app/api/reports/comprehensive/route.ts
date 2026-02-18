@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 // ✅ REPORTS API v3 - Proper filters + New report types
 // Fixes: filters not working, adds division comparison report
 // app/api/reports/comprehensive/route.ts
@@ -9,8 +10,8 @@ let _supabase: any = null
 function getSupabase() {
   if (!_supabase) {
     _supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
+      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key',
       { auth: { persistSession: false, autoRefreshToken: false } }
     )
   }

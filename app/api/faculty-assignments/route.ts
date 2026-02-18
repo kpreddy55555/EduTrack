@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 // 📊 ENHANCED Faculty Assignments API - TypeScript Error Free
 // Fetches assignments, topics, and calculates comprehensive progress data
 
